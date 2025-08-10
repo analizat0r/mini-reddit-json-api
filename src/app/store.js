@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import allListingsSlice from "../features/allListings/allListingsSlice"
+import allListingsReducer from "../features/allListings/allListingsSlice"
 
-export default configureStore({
+export const store = configureStore({
     reducer: {
-        allListings: allListingsSlice
+        allListings: allListingsReducer
     }
-})
+});
