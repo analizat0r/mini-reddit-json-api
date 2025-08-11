@@ -1,0 +1,40 @@
+.width {
+    width: 700px;
+    height: 300px;
+    background-color: antiquewhite;
+}
+
+.cardHeader {
+    display: inline-flex;
+}
+
+.subRedditAvatarContainerParent {
+    display: flex;
+    padding-right: 6px;
+}
+
+.subRedditAvatarContainerChild {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: aqua;
+}
+
+.subRedditAvatarContainerChildChild{
+    display: inline-block; 
+    width: 100%;    
+    height: 100%;
+    background-color: red;
+    border-radius: 50%;
+}
+/*
+inline-flex items-center justify-center w-[1.5rem] h-[1.5rem]
+
+class="inline-block rounded-full  relative [&>:first-child]:h-full [&>:first-child]:w-full [&>:first-child]:mb-0 [&>:first-child]:rounded-[inherit] h-full w-full 
+
+
+
+*/
+
