@@ -1,31 +1,31 @@
-.width {
+.card {
+    display: block;
     width: 700px;
     height: 300px;
     background-color: antiquewhite;
+    margin: 0px 16px;
 }
 
 .cardHeader {
-    display: inline-flex;
+    display: block;
+    min-height: 32px;
+    margin-bottom: 0.25rem;
 }
 
-.subRedditAvatarContainerParent {
+.cardHeaderElements { /* this div needs to be fixed. need to wrap a header in a container, then wrap all three items in a container*/
     display: flex;
     padding-right: 6px;
-}
-
-.subRedditAvatarContainerChild {
-    display: inline-flex;
-    justify-content: center;
     align-items: center;
-    width: 1.5rem;
-    height: 1.5rem;
-    background-color: aqua;
+    flex-wrap: wrap;
+    gap: .25rem;
+    font-size: .75rem;
+    line-height: 1rem;
 }
 
-.subRedditAvatarContainerChildChild{
+.cardHeaderElementsAvatarInner{
     display: inline-block; 
-    width: 100%;    
-    height: 100%;
+    width: 24px;    
+    height: 24px;
     background-color: red;
     border-radius: 50%;
 }
