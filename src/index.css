@@ -13,7 +13,7 @@
   --color-neutral-content-weak: #5C6C74; /*e.g. posted 21hrs ago*/
   --color-neutral-content-strong: #181C1F; /*post title*/
   --color-secondary-onBackground: #000000; /* used in buttons */
-
+  --color-secondary-background: #E5EBEE;
 }
 
 body {
@@ -28,20 +28,11 @@ h1 {
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
