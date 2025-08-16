@@ -1,0 +1,28 @@
+.headerMain {
+    display: flex;
+    align-items: center;
+    height: 56px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-style: solid;
+    border-bottom-width: .0625rem;
+    /* border-color: var(--color-neutral-border);
+    border-width: 0; */
+}
+
+
+.logoSvgs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.snoo {
+    height: 32px;
+    width: auto;   
+}
+
+.text {
+    height: 24px;
+    width: auto; 
+}

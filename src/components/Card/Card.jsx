@@ -1,6 +1,6 @@
 import styles from './Card.module.css';
-import ArrowIcon from './ArrowIcon';
-import CommentIcon from './CommentIcon'
+import ArrowIcon from '../ArrowIcon';
+import CommentIcon from '../CommentIcon'
 
 export function Card( {title} ) {
     return (
