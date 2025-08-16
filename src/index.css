@@ -14,6 +14,7 @@
   --color-neutral-content-strong: #181C1F; /*post title*/
   --color-secondary-onBackground: #000000; /* used in buttons */
   --color-secondary-background: #E5EBEE;
+  --color-neutral-border-weak: #00000019;
 }
 
 body {
@@ -35,4 +36,11 @@ button {
   font: inherit;
   color: inherit;
   cursor: pointer;
+}
+
+hr {
+  color: var(--color-neutral-border-weak);
+  border-style: solid;
+  border-width: 0;
+  border-bottom-width: .0625rem;
 }
