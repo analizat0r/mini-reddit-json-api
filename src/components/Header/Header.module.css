@@ -35,11 +35,28 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    border: 1px solid var(--color-neutral-border-weak);
+    border-radius: 999px;
+    padding: 4px 16px;
+}
+
+.searchComponentChild {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.searchIcon {
+    margin-top: 6px;
 }
 
 .searchInput {
     width: 100%;
-    max-width: 400px;
-    padding: 8px 16px;
-    border-radius: 999px;
+    min-width: 500px;
+    max-width: 500px;
+    border: 0px;
 }
+input:focus {
+    outline: none;
+}
+

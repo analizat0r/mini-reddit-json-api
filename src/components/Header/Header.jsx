@@ -17,10 +17,11 @@ export function Header() {
                     </a>
                 </div>
                 <div className={styles.searchComponent}>
-                    <form>
-                        <SearchIcon size={16} />
+                    <form className={styles.searchComponentChild}>
+                        <button>
+                            <SearchIcon size={16} className={styles.searchIcon} />
+                        </button>
                         <input placeholder='Search Reddit' className={styles.searchInput}></input>
-                        <button></button>
                     </form>
                 </div>
             </div>
