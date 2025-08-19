@@ -1,8 +1,8 @@
 import styles from './Card.module.css';
-import ArrowIcon from '../ArrowIcon';
-import CommentIcon from '../CommentIcon'
+import ArrowIcon from '../Icons/ArrowIcon';
+import CommentIcon from '../Icons/CommentIcon'
 
-export function Card( {title} ) {
+export function Card( {title, commentsCount, score, subreddit} ) {
     return (
         <article className={styles.card}>
 
@@ -14,7 +14,7 @@ export function Card( {title} ) {
                         </span>
                     </div>
 
-                    <span className={styles.subRedditName}>r/subreddit</span>
+                    <span className={styles.subRedditName}>{subreddit}</span>
                     <span className={styles.dividerDot}>•</span>
                     <span className={styles.time}>21 hours ago</span>
                 </div>
@@ -35,7 +35,7 @@ export function Card( {title} ) {
                         </span>
                         
                     </button>
-                    <span className={styles.upVoteCount}>407</span>
+                    <span className={styles.upVoteCount}>{score}</span>
                     <button>
                         <span className={styles.upVoteArrow}>
                             <ArrowIcon direction={"down"} size={16}/>
@@ -47,7 +47,7 @@ export function Card( {title} ) {
                         <span className={styles.commentIconContainer}>
                             <CommentIcon size={16}/>
                         </span>
-                        <span>103</span>
+                        <span>{commentsCount}</span>
                     </span>
                 </a>
                 

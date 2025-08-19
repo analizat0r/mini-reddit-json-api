@@ -1,0 +1,12 @@
+.main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: minmax(0,756px) minmax(0,316px);
+    gap: 1.5rem;
+    max-width: 1120px;
+}

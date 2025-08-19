@@ -2,7 +2,7 @@ import styles from './Header.module.css';
 
 import snooLogo from '../../assets/logo/snoo.svg';
 import redditText from '../../assets/logo/Reddit_Logo_Wordmark_OrangeRed.svg';
-import SearchIcon from '../SearchIcon'
+import SearchIcon from '../Icons/SearchIcon'
 
 export function Header() {
     return (
@@ -28,5 +28,3 @@ export function Header() {
         </header>
     )
 }
-
-// Todo: restyle input to icon be a separate item, input without border. make all inline, centered, etc.
