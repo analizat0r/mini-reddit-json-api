@@ -1,8 +1,10 @@
 import styles from './Card.module.css';
 import ArrowIcon from '../Icons/ArrowIcon';
 import CommentIcon from '../Icons/CommentIcon'
+import timeAgoConverter from '../../utils/timeAgo';
+import numFormater from '../../utils/countFormater';
 
-export function Card( {title, commentsCount, score, subreddit} ) {
+export function Card( { community_icon, title, commentsCount, score, subreddit, postedAt } ) {
     return (
         <article className={styles.card}>
 
@@ -10,13 +12,14 @@ export function Card( {title, commentsCount, score, subreddit} ) {
                 <div className={styles.cardHeaderElements}>
                     <div className={styles.cardHeaderElementsAvatar}>
                         <span className={styles.cardHeaderElementsAvatarInner}>
-                            <img /> {/* need additional function to get avatar img*/}
+                            <img src={community_icon} /> 
+                            {/* fix icon sizing to be 24x24 and circle */}
                         </span>
                     </div>
 
                     <span className={styles.subRedditName}>{subreddit}</span>
                     <span className={styles.dividerDot}>•</span>
-                    <span className={styles.time}>21 hours ago</span>
+                    <span className={styles.time}>{timeAgoConverter(postedAt)}</span>
                 </div>
             </div>
             
@@ -35,7 +38,7 @@ export function Card( {title, commentsCount, score, subreddit} ) {
                         </span>
                         
                     </button>
-                    <span className={styles.upVoteCount}>{score}</span>
+                    <span className={styles.upVoteCount}>{numFormater(score)}</span>
                     <button>
                         <span className={styles.upVoteArrow}>
                             <ArrowIcon direction={"down"} size={16}/>
@@ -47,7 +50,7 @@ export function Card( {title, commentsCount, score, subreddit} ) {
                         <span className={styles.commentIconContainer}>
                             <CommentIcon size={16}/>
                         </span>
-                        <span>{commentsCount}</span>
+                        <span>{numFormater(commentsCount)}</span>
                     </span>
                 </a>
                 

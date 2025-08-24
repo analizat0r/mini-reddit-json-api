@@ -24,14 +24,17 @@ function App() {
             {isLoading && <p>Loading...</p>}
             {hasError && <p>"Error loading the data :"</p>}
             
-            {listings.map((item, idx) => (
+            {listings.map((post, idx) => (
               <>
               <Card
                 key={idx}
-                subreddit={item.subreddit}
-                title={item.title}
-                commentsCount={item.num_comments}
-                score={item.score} />
+                subreddit={post.subreddit}
+                community_icon={post.community_icon}
+                title={post.title}
+                commentsCount={post.num_comments}
+                score={post.score}
+                postedAt={post.postedAt}
+              />
               <hr></hr>
               </>
             ))}
