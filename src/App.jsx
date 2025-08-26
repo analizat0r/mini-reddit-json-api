@@ -34,6 +34,7 @@ function App() {
                 commentsCount={post.num_comments}
                 score={post.score}
                 postedAt={post.postedAt}
+                selftext={post.selftext}
               />
               <hr></hr>
               </>

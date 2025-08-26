@@ -4,7 +4,7 @@ import CommentIcon from '../Icons/CommentIcon'
 import timeAgoConverter from '../../utils/timeAgo';
 import numFormater from '../../utils/countFormater';
 
-export function Card( { community_icon, title, commentsCount, score, subreddit, postedAt } ) {
+export function Card( { community_icon, title, selftext, commentsCount, score, subreddit, postedAt } ) {
     return (
         <article className={styles.card}>
 
@@ -25,9 +25,7 @@ export function Card( { community_icon, title, commentsCount, score, subreddit, 
             
             <div className={styles.cardBody}>
                 <h3 className={styles.threadTitle}>{title}</h3>
-                <div className={styles.threadNoImg}>Over the last few days my fyp has started getting weirder, I usually follow cosplay videos, left leaning politics, lgbtiqaq etc. But now occasionally coming up are softcore child exploitation material usually in Russian, while I have said I'm not interested in any of these and have been reporting the posts.
-                
-                I know I can reset my feed and have done this a few times but I'm still being served these exploitation videos, as a survivor of CSA this is especially triggering.</div>
+                <div className={styles.threadNoImg}>{selftext}</div>
             </div>
 
             <div className={styles.cardFooter}>

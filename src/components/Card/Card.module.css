@@ -29,6 +29,10 @@
     border-radius: 50%;
 }
 
+.cardHeaderElementsAvatarInner > img {
+    border-radius: inherit;
+}
+
 .subRedditName {
     color: var(--color-neutral-content);
     font-weight: 600;
