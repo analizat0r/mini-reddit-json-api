@@ -1,7 +1,7 @@
 const url = 'https://www.reddit.com/.json';
 
 // helper function to strip '&amp;' from urls and replace them with '&'
-function cleanIconUrl(url) {
+function cleanUrl(url) {
   if (!url) return null;
   return url.replace(/&amp;/g, "&");
 }
@@ -22,12 +22,10 @@ export async function getPosts() {
             postedAt: post.data.created_utc,
             title: post.data.title,
             selftext: post.data.selftext,
-            thumbnail: post.data.thumbnail,
-            thumbnail_height: post.data.thumbnail_height,
-            thumbnail_width: post.data.thumbnail_width,
             score: post.data.score,
             num_comments: post.data.num_comments,
-            secure_media: post.data.secure_media?.reddit_video?.hls_url || null
+            secure_media: post.data.secure_media?.reddit_video || null,
+            preview: post.data.preview?.images || null
         }));
 
         // Step 2. fetch subreddit icons in parallel
@@ -39,8 +37,8 @@ export async function getPosts() {
                 if (subResponse.ok) {
                     const subJson = await subResponse.json();
                     const communityIcon =
-                        cleanIconUrl(subJson.data.community_icon) ||
-                        cleanIconUrl(subJson.data.icon_img) ||
+                        cleanUrl(subJson.data.community_icon) ||
+                        cleanUrl(subJson.data.icon_img) ||
                         null;
                     return { ...post, community_icon: communityIcon };
                 } else {
