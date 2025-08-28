@@ -35,6 +35,7 @@ function App() {
                 score={post.score}
                 postedAt={post.postedAt}
                 selftext={post.selftext}
+                image_url={post.image_url}
               />
               <hr></hr>
               </>

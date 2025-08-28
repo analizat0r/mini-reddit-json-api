@@ -4,7 +4,7 @@ import CommentIcon from '../Icons/CommentIcon'
 import timeAgoConverter from '../../utils/timeAgo';
 import numFormater from '../../utils/countFormater';
 
-export function Card( { community_icon, title, selftext, commentsCount, score, subreddit, postedAt } ) {
+export function Card( { community_icon, title, selftext, image_url, commentsCount, score, subreddit, postedAt } ) {
     return (
         <article className={styles.card}>
 
@@ -25,7 +25,11 @@ export function Card( { community_icon, title, selftext, commentsCount, score, s
             
             <div className={styles.cardBody}>
                 <h3 className={styles.threadTitle}>{title}</h3>
-                <div className={styles.threadNoImg}>{selftext}</div>
+                <div className={styles.threadNoImg}>{
+                        image_url ? <img src={image_url} /> : selftext
+                    }
+                    /* add image rendering component which would have max width and height so the images are rescaled properly */
+                </div>
             </div>
 
             <div className={styles.cardFooter}>

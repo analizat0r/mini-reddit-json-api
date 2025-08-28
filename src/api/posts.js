@@ -25,7 +25,9 @@ export async function getPosts() {
             score: post.data.score,
             num_comments: post.data.num_comments,
             secure_media: post.data.secure_media?.reddit_video || null,
-            preview: post.data.preview?.images || null
+            image_url: post.data.preview?.images?.[0]?.source?.url
+                ? cleanUrl(post.data.preview.images[0].source.url)
+                : null
         }));
 
         // Step 2. fetch subreddit icons in parallel
