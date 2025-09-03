@@ -14,7 +14,6 @@ const initialState = {
   hasError: false,
 };
 
-
 const allListingsSlice = createSlice({
     name: "allListings",
     initialState,

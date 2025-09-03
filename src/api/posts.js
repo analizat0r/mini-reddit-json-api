@@ -1,20 +1,21 @@
-const url = 'https://www.reddit.com/.json';
-
 // helper function to strip '&amp;' from urls and replace them with '&'
 function cleanUrl(url) {
   if (!url) return null;
   return url.replace(/&amp;/g, "&");
 }
 
+let after = null;
+
 export async function getPosts() {
     try {
-        const response = await fetch(url);
+        const response = await fetch(`https://www.reddit.com/.json${after ? `?after=${after}` : ''}`);
         if (!response.ok) {
             console.log(`Fetch successful, but the response is not ok.`);
             return [];
         }
 
         const jsonResponse = await response.json();
+        after = jsonResponse.data.after;
 
         // Step 1. map all posts
         const posts = jsonResponse.data.children.map((post) => ({
@@ -24,7 +25,7 @@ export async function getPosts() {
             selftext: post.data.selftext,
             score: post.data.score,
             num_comments: post.data.num_comments,
-            secure_media: post.data.secure_media?.reddit_video || null,
+            video_url: post.data.secure_media?.reddit_video?.fallback_url || null,
             image_url: post.data.preview?.images?.[0]?.source?.url
                 ? cleanUrl(post.data.preview.images[0].source.url)
                 : null
