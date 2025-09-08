@@ -31,35 +31,34 @@ export async function getPosts() {
                 : null
         }));
 
-        // Step 2. fetch subreddit icons in parallel
-        const subredditsPromises = posts.map(async (post) => {
-            try {
-                const subredditUrl = `https://www.reddit.com/${post.subreddit}/about.json`;
-                const subResponse = await fetch(subredditUrl);
+        // // Step 2. fetch subreddit icons in parallel
+        // const subredditsPromises = posts.map(async (post) => {
+        //     try {
+        //         const subredditUrl = `https://www.reddit.com/${post.subreddit}/about.json`;
+        //         const subResponse = await fetch(subredditUrl);
 
-                if (subResponse.ok) {
-                    const subJson = await subResponse.json();
-                    const communityIcon =
-                        cleanUrl(subJson.data.community_icon) ||
-                        cleanUrl(subJson.data.icon_img) ||
-                        null;
-                    return { ...post, community_icon: communityIcon };
-                } else {
-                    return { ...post, community_icon: null };
-                }
-            } catch {
-                return { ...post, community_icon: null };
-            }
-        });
+        //         if (subResponse.ok) {
+        //             const subJson = await subResponse.json();
+        //             const communityIcon =
+        //                 cleanUrl(subJson.data.community_icon) ||
+        //                 cleanUrl(subJson.data.icon_img) ||
+        //                 null;
+        //             return { ...post, community_icon: communityIcon };
+        //         } else {
+        //             return { ...post, community_icon: null };
+        //         }
+        //     } catch {
+        //         return { ...post, community_icon: null };
+        //     }
+        // });
 
-        // Step 3. resolve all promise
-        const postsWithIcons = await Promise.all(subredditsPromises);
+        // // Step 3. resolve all promise
+        // const postsWithIcons = await Promise.all(subredditsPromises);
 
-        console.log(postsWithIcons);
-        return postsWithIcons;       
-        
+        // console.log(postsWithIcons);
+        return { posts: posts, after };       
     } catch (error) {
         console.log(`There was an error getting posts: ${error}`);
-        return [];
+        return { posts: [], after: null };
     }
 }

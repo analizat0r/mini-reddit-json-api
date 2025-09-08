@@ -19,7 +19,7 @@ function App() {
           dispatch(loadListings());
         }
       },
-      { threshold: 1 }
+      { threshold: 0.5 }
     );
     observer.observe(sentinelRef.current);
     return () => observer.disconnect();

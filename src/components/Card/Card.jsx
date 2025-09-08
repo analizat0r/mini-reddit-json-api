@@ -1,10 +1,29 @@
+import { useRef, useEffect } from 'react';
 import styles from './Card.module.css';
 import ArrowIcon from '../Icons/ArrowIcon';
 import CommentIcon from '../Icons/CommentIcon'
 import timeAgoConverter from '../../utils/timeAgo';
 import numFormater from '../../utils/countFormater';
 
-export function Card( { community_icon, title, selftext, image_url, commentsCount, score, subreddit, postedAt, video_url } ) {
+export function Card( { community_icon, title, selftext, image_url, num_comments, score, subreddit, postedAt, video_url } ) {
+    const videoRef = useRef(null);
+    
+    useEffect(() => {
+        if (!videoRef.current) return;
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    videoRef.current.play();
+                } else {
+                    videoRef.current.pause();
+                }
+            },
+            { threshold: 0.5 }
+        );
+        observer.observe(videoRef.current);
+        return () => observer.disconnect();
+    }, []);
+
     return (
         <article className={styles.card}>
 
@@ -27,7 +46,14 @@ export function Card( { community_icon, title, selftext, image_url, commentsCoun
                 <h3 className={styles.threadTitle}>{title}</h3>
                 <div className={styles.threadBody}>
                     {video_url ? (
-                        <video autoPlay muted preload="metadata" playsInline className={styles.threadImgContainer}>
+                        <video
+                            ref={videoRef}
+                            muted
+                            controls
+                            preload="metadata"
+                            playsInline
+                            className={styles.threadImgContainer}
+                        >
                             <source src={video_url} type="video/mp4" />
                         </video>
                     ) : image_url ? (
@@ -60,7 +86,7 @@ export function Card( { community_icon, title, selftext, image_url, commentsCoun
                         <span className={styles.commentIconContainer}>
                             <CommentIcon size={16}/>
                         </span>
-                        <span>{numFormater(commentsCount)}</span>
+                        <span>{numFormater(num_comments)}</span>
                     </span>
                 </a>
                 
