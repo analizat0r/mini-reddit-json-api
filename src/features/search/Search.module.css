@@ -1,0 +1,19 @@
+.searchComponentChild {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.searchIcon {
+    margin-top: 6px;
+}
+
+.searchInput {
+    width: 100%;
+    min-width: 500px;
+    max-width: 500px;
+    border: 0px;
+}
+input:focus {
+    outline: none;
+}

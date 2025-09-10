@@ -32,7 +32,6 @@ export function Card( { community_icon, title, selftext, image_url, num_comments
                     <div className={styles.cardHeaderElementsAvatar}>
                         <span className={styles.cardHeaderElementsAvatarInner}>
                             <img src={community_icon} /> 
-                            {/* fix icon sizing to be 24x24 and circle */}
                         </span>
                     </div>
 
