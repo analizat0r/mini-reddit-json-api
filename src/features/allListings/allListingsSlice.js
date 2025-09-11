@@ -5,7 +5,8 @@ const initialState = {
   listings: [],
   isLoading: false,
   hasError: false,
-  hasMore: true
+  hasMore: true,
+  after: null
 };
 
 export const loadListings = createAsyncThunk(
@@ -13,7 +14,7 @@ export const loadListings = createAsyncThunk(
     async (_, { getState }) => {
         const state = getState();
         if (!state.allListings.hasMore) return { posts: [], after: null };
-        return await getPosts();
+        return await getPosts("", state.allListings.after);
     }
 );
 
@@ -32,6 +33,7 @@ const allListingsSlice = createSlice({
                 state.isLoading = false;
                 state.hasError = false;
                 state.hasMore = action.payload.after !== null;
+                state.after = action.payload.after;
             })
             .addCase(loadListings.rejected, (state) => {
                  state.isLoading = false;

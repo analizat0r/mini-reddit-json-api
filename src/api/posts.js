@@ -6,16 +6,22 @@ function cleanUrl(url) {
 
 let after = null;
 
-export async function getPosts() {
+export async function getPosts(searchTerm = "", after = null) {
+    let url;
+    if (searchTerm) {
+        url = `https://www.reddit.com/search/.json?q=${encodeURIComponent(searchTerm)}${after ? `&after=${after}` : ""}`;
+    } else {
+        url = `https://www.reddit.com/.json${after ? `?after=${after}` : ''}`;
+    }
     try {
-        const response = await fetch(`https://www.reddit.com/.json${after ? `?after=${after}` : ''}`);
+        const response = await fetch(url);
         if (!response.ok) {
             console.log(`Fetch successful, but the response is not ok.`);
-            return [];
+            return { posts: [], after: null };
         }
 
         const jsonResponse = await response.json();
-        after = jsonResponse.data.after;
+        const nextAfter = jsonResponse.data.after;
 
         // Step 1. map all posts
         const posts = jsonResponse.data.children.map((post) => ({
@@ -56,7 +62,7 @@ export async function getPosts() {
         // const postsWithIcons = await Promise.all(subredditsPromises);
 
         // console.log(postsWithIcons);
-        return { posts: posts, after };       
+        return { posts, after: nextAfter };       
     } catch (error) {
         console.log(`There was an error getting posts: ${error}`);
         return { posts: [], after: null };
