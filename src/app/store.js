@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import allListingsReducer from "../features/allListings/allListingsSlice"
+import allListingsReducer from "../features/allListings/allListingsSlice";
+import searchReducer from "../features/search/searchSlice";
 
 export const store = configureStore({
     reducer: {
-        allListings: allListingsReducer
+        allListings: allListingsReducer,
+        search: searchReducer
     }
 });

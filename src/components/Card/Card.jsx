@@ -8,6 +8,7 @@ import numFormater from '../../utils/countFormater';
 export function Card( { community_icon, title, selftext, image_url, num_comments, score, subreddit, postedAt, video_url } ) {
     const videoRef = useRef(null);
     
+    // function which plays/pauses videos when in/out of viewport
     useEffect(() => {
         if (!videoRef.current) return;
         const observer = new IntersectionObserver(
