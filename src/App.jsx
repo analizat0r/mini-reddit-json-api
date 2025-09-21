@@ -8,7 +8,14 @@ import { useEffect, useRef } from 'react';
 
 function App() {
   const dispatch = useDispatch();
-  const { listings, isLoading, hasError } = useSelector((state) => state.allListings);
+  const { listings: feedListings, isLoading, hasError } = useSelector((state) => state.allListings);
+  const { listings: searchListings, isLoading: searchLoading, hasError: searchError } = useSelector((state) => state.search);
+  
+  // show search results if any, otherwise feed
+  const displayedListings = (searchListings && searchListings.length > 0) ? searchListings : feedListings;
+  const loading = searchListings && searchListings.length > 0 ? searchLoading : isLoading;
+  const error = searchListings && searchListings.length > 0 ? searchError : hasError;
+
   const sentinelRef = useRef(null);
 
   useEffect(() => {
@@ -31,14 +38,14 @@ function App() {
       <main className={styles.main}>
         <div className={styles.wrapper}>
           <div>
-            {listings.map((post, idx) => ( 
-              <>
-                <Card key={idx} {...post} />
+            {displayedListings.map((post, idx) => ( 
+              <span key={idx}>
+                <Card {...post} />
                 <hr />
-              </>
+              </span>
             ))}
-            {isLoading && <p>Loading...</p>}
-            {hasError && <p>"Error loading the data :"</p>}
+            {loading && <p>Loading...</p>}
+            {error && <p>"Error loading the data :"</p>}
             <div ref={sentinelRef} style={{ height: 1 }} ></div>
           </div>
           <aside>

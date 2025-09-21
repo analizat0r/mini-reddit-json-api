@@ -1,10 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { getPosts } from "../../api/posts";
 
 const initialState = {
     listings: [],
     isLoading: false,
     hasError: false,
     hasMore: true,
+    after: null,
     searchTerm: ""
 }
 
@@ -28,8 +30,6 @@ const searchSlice = createSlice({
         },
         clearSearchTerm(state) {
             state.searchTerm = "";
-            state.listings = [];
-            state.hasMore = true;
         }
     },
     extraReducers: (builder) => {
@@ -38,14 +38,14 @@ const searchSlice = createSlice({
                 state.isLoading = true;
                 state.hasError = false;
             })
-            .addCase(searchPosts.fullfilled, (state, action) => {
+            .addCase(searchPosts.fulfilled, (state, action) => {
                 state.listings = [...state.listings, ...action.payload.posts]
                 state.isLoading = false;
                 state.hasError = false;
                 state.hasMore = action.payload.after !== null;
                 state.after = action.payload.after;
             })
-            .addCase(searchPosts.pending, (state) => {
+            .addCase(searchPosts.rejected, (state) => {
                 state.isLoading = false;
                 state.hasError = true;
             });
