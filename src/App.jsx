@@ -4,6 +4,8 @@ import styles from './App.module.css';
 import { Card } from './components/Card/Card';
 import { Header } from './components/Header/Header';
 import { useEffect, useRef } from 'react';
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 
 function App() {
@@ -38,14 +40,24 @@ function App() {
       <main className={styles.main}>
         <div className={styles.wrapper}>
           <div>
-            {displayedListings.map((post, idx) => ( 
-              <span key={idx}>
-                <Card {...post} />
-                <hr />
-              </span>
-            ))}
-            {loading && <p>Loading...</p>}
-            {error && <p>"Error loading the data :"</p>}
+            {loading && displayedListings.length === 0 ? (
+              // show 5 skeleton cards while initial load
+              Array.from({ length: 5 }).map((_, i) => (
+                <div key={i} style={{ margin: '16px 0' }}>
+                  <Skeleton height={32} width={200} /> {/* header */}
+                  <Skeleton height={24} style={{ marginTop: 8 }} /> {/* title */}
+                  <Skeleton height={400} /> {/* media placeholder */}
+                  <Skeleton height={32} width={250} /> {/* footer */}
+                </div>
+              ))
+            ) : (
+              displayedListings.map((post, idx) => (
+                <span key={idx}>
+                  <Card {...post} />
+                  <hr />
+                </span>
+              ))
+            )}
             <div ref={sentinelRef} style={{ height: 1 }} ></div>
           </div>
           <aside>

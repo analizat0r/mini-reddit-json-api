@@ -54,6 +54,3 @@ const searchSlice = createSlice({
 
 export const { setSearchTerm, clearSearchTerm } = searchSlice.actions;
 export default searchSlice.reducer;
-
-
-//use now this functions in search component

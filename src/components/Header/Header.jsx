@@ -8,7 +8,7 @@ export function Header() {
         <header className={styles.header}>
             <div className={styles.headerMain}>
                 <div className={styles.logoMain}>
-                    <a href="#">
+                    <a href="http://localhost:5173/">
                         <div className={styles.logoSvgs}>
                             <img src={snooLogo} alt="Reddit Snoo" className={styles.snoo} />
                             <img src={redditText} alt="Reddit" className={styles.text} /> 
