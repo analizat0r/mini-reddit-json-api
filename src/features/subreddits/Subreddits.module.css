@@ -1,0 +1,22 @@
+.cardHeaderElements { 
+    display: flex;
+    padding-right: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .25rem;
+    font-size: .75rem;
+    line-height: 1rem;
+}
+
+.cardHeaderElementsAvatarInner {
+    display: flex; 
+    width: 24px;    
+    height: 24px;
+    background-color: var(--color-secondary-background);
+    border-radius: 50%;
+}
+
+.cardHeaderElementsAvatarInner > img {
+    border-radius: inherit;
+    overflow: hidden;
+}

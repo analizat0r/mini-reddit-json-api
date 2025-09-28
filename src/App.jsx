@@ -6,13 +6,21 @@ import { Header } from './components/Header/Header';
 import { useEffect, useRef } from 'react';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import { Subreddits } from './features/Subreddits/Subreddits';
+import { loadSubreddits } from './features/subreddits/subredditsSlice';
+
 
 
 function App() {
   const dispatch = useDispatch();
   const { listings: feedListings, isLoading, hasError } = useSelector((state) => state.allListings);
   const { listings: searchListings, isLoading: searchLoading, hasError: searchError } = useSelector((state) => state.search);
-  
+  const { subreddits, isLoading: subredditsLoading, hasError: subredditsError } = useSelector((state) => state.allSubreddits);
+
+  useEffect(() => {
+    dispatch(loadSubreddits());
+  },[dispatch])
+
   // show search results if any, otherwise feed
   const displayedListings = (searchListings && searchListings.length > 0) ? searchListings : feedListings;
   const loading = searchListings && searchListings.length > 0 ? searchLoading : isLoading;
@@ -61,7 +69,22 @@ function App() {
             <div ref={sentinelRef} style={{ height: 1 }} ></div>
           </div>
           <aside>
-            sidebar with subreddits
+            {subredditsLoading && subreddits.length === 0 ? (
+              Array.from({ length: 5 }).map((_, i) => (
+                <div key={i} style={{ margin: '16px 0' }}>
+                  <Skeleton height={32} width={200} /> {/* header */}
+                  <Skeleton height={24} style={{ marginTop: 8 }} /> {/* title */}
+                  <Skeleton height={400} /> {/* media placeholder */}
+                  <Skeleton height={32} width={250} /> {/* footer */}
+                </div>
+              ))
+            ) : (
+              subreddits.map((subreddit, idx) => (
+                <span key={subreddit.data?.name || idx}>
+                  <Subreddits {...subreddit.data}/> {/* for some reason there is no value in the response */}
+                </span>
+              ))
+            )}
           </aside>
         </div>
       </main>
