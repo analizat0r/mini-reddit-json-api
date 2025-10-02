@@ -8,8 +8,7 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { Subreddits } from './features/Subreddits/Subreddits';
 import { loadSubreddits } from './features/subreddits/subredditsSlice';
-
-
+import { cleanUrl } from './utils/cleanUrl';
 
 function App() {
   const dispatch = useDispatch();
@@ -68,21 +67,24 @@ function App() {
             )}
             <div ref={sentinelRef} style={{ height: 1 }} ></div>
           </div>
-          <aside>
+          <aside className={styles.sidebar}>
+            <h3>Popular communities</h3>
             {subredditsLoading && subreddits.length === 0 ? (
-              Array.from({ length: 5 }).map((_, i) => (
+              Array.from({ length: 25 }).map((_, i) => (
                 <div key={i} style={{ margin: '16px 0' }}>
-                  <Skeleton height={32} width={200} /> {/* header */}
-                  <Skeleton height={24} style={{ marginTop: 8 }} /> {/* title */}
-                  <Skeleton height={400} /> {/* media placeholder */}
-                  <Skeleton height={32} width={250} /> {/* footer */}
+                  <Skeleton height={32} /> {/* header */}
                 </div>
               ))
             ) : (
-              subreddits.map((subreddit, idx) => (
-                <span key={subreddit.data?.name || idx}>
-                  <Subreddits {...subreddit.data}/> {/* for some reason there is no value in the response */}
-                </span>
+              subreddits
+                .filter(subreddit => subreddit && subreddit.data)
+                .map((subreddit, idx) => (
+                  <span key={subreddit.data.name || idx} className={styles.subredditSpacing}>
+                    <Subreddits
+                      display_name_prefixed={subreddit.data.display_name_prefixed}
+                      icon={cleanUrl(subreddit.data.community_icon)}
+                    />
+                  </span>
               ))
             )}
           </aside>

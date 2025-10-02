@@ -25,7 +25,7 @@ const allSubredditsSlice = createSlice({
                 state.hasError = false;
             })
             .addCase(loadSubreddits.fulfilled, (state, action) => {
-                state.subreddits = [...state.subreddits, action.payload];
+                state.subreddits = action.payload;
                 state.isLoading = false;
                 state.hasError = false;
             })

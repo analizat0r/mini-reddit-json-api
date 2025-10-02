@@ -1,17 +1,13 @@
-// helper function to strip '&amp;' from urls and replace them with '&'
-function cleanUrl(url) {
-  if (!url) return null;
-  return url.replace(/&amp;/g, "&");
-}
+import { cleanUrl } from '../utils/cleanUrl';
 
 let after = null;
 
 export async function getPosts(searchTerm = "", after = null) {
     let url;
     if (searchTerm) {
-        url = `https://www.reddit.com/search/.json?q=${encodeURIComponent(searchTerm)}${after ? `&after=${after}` : ""}`;
+        url = `https://corsproxy.io/?https://www.reddit.com/search/.json?q=${encodeURIComponent(searchTerm)}${after ? `&after=${after}` : ""}`;
     } else {
-        url = `https://www.reddit.com/.json${after ? `?after=${after}` : ''}`;
+        url = `https://corsproxy.io/?https://www.reddit.com/.json${after ? `?after=${after}` : ''}`;
     }
     try {
         const response = await fetch(url);
@@ -37,10 +33,10 @@ export async function getPosts(searchTerm = "", after = null) {
                 : null
         }));
 
-        // // Step 2. fetch subreddit icons in parallel
+        // Step 2. fetch subreddit icons in parallel
         // const subredditsPromises = posts.map(async (post) => {
         //     try {
-        //         const subredditUrl = `https://www.reddit.com/${post.subreddit}/about.json`;
+        //         const subredditUrl = `https://corsproxy.io/?https://www.reddit.com/${post.subreddit}/about.json`;
         //         const subResponse = await fetch(subredditUrl);
 
         //         if (subResponse.ok) {
