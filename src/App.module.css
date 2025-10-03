@@ -16,7 +16,7 @@
     top: 2rem;
     background-color: var(--color-secondary-background);
     border-radius: 1rem;
-    padding: 0.5rem 0 0.5rem 2rem;
+    padding: 0.5rem 0 2rem 2rem;
     margin-top: 2rem;
     align-self: start;
 }
