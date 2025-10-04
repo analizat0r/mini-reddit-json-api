@@ -6,15 +6,18 @@ const initialState = {
   isLoading: false,
   hasError: false,
   hasMore: true,
-  after: null
+  after: null,
+  currentSubreddit: null
 };
 
 export const loadListings = createAsyncThunk(
     "allListings/getAllListings",
-    async (_, { getState }) => {
+    async ({ subreddit } = {}, { getState }) => {
         const state = getState();
-        if (!state.allListings.hasMore) return { posts: [], after: null };
-        return await getPosts("", state.allListings.after);
+        // if requesting a different subreddit, reset 'after' for a fresh fetch
+        const current = state.allListings.currentSubreddit;
+        const after = subreddit && subreddit !== current ? null : state.allListings.after;
+        return await getPosts("", after, subreddit);
     }
 );
 
@@ -24,12 +27,30 @@ const allListingsSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(loadListings.pending, (state) => {
+            .addCase(loadListings.pending, (state, action) => { // <-- accept action
                 state.isLoading = true;
                 state.hasError = false;
+                const requestedSubreddit = action.meta.arg?.subreddit;
+                if (requestedSubreddit && requestedSubreddit !== state.currentSubreddit) {
+                  state.listings = [];
+                  state.after = null;
+                  state.hasMore = true;
+                  state.currentSubreddit = requestedSubreddit;
+                }
             })
             .addCase(loadListings.fulfilled, (state, action) => {
-                state.listings = [...state.listings, ...action.payload.posts];
+                // append for same subreddit / feed, but replace if this was a fresh subreddit fetch
+                const requestedSubreddit = action.meta.arg?.subreddit;
+                if (requestedSubreddit && requestedSubreddit === state.currentSubreddit && state.listings.length === 0) {
+                  state.listings = [...action.payload.posts];
+                } else if (requestedSubreddit && requestedSubreddit !== null && state.currentSubreddit === requestedSubreddit && state.listings.length === 0) {
+                  state.listings = [...action.payload.posts];
+                } else if (!requestedSubreddit && state.listings.length === 0) {
+                  state.listings = [...action.payload.posts];
+                } else {
+                  state.listings = [...state.listings, ...action.payload.posts];
+                }
+
                 state.isLoading = false;
                 state.hasError = false;
                 state.hasMore = action.payload.after !== null;

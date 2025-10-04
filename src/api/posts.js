@@ -2,12 +2,15 @@ import { cleanUrl } from '../utils/cleanUrl';
 
 let after = null;
 
-export async function getPosts(searchTerm = "", after = null) {
+export async function getPosts(searchTerm = "", after = null, subreddit = null) {
     let url;
-    if (searchTerm) {
-        url = `https://corsproxy.io/?https://www.reddit.com/search/.json?q=${encodeURIComponent(searchTerm)}${after ? `&after=${after}` : ""}`;
+
+    if (subreddit) {
+        url = `https://www.reddit.com/r/${encodeURIComponent(subreddit)}.json${after ? `?after=${after}` : ""}`;
+    } else if (searchTerm) {
+        url = `https://www.reddit.com/search.json?q=${encodeURIComponent(searchTerm)}${after ? `&after=${after}` : ""}`;
     } else {
-        url = `https://corsproxy.io/?https://www.reddit.com/.json${after ? `?after=${after}` : ''}`;
+        url = `https://www.reddit.com/.json${after ? `?after=${after}` : ""}`;
     }
     try {
         const response = await fetch(url);
@@ -57,7 +60,6 @@ export async function getPosts(searchTerm = "", after = null) {
         // // Step 3. resolve all promise
         // const postsWithIcons = await Promise.all(subredditsPromises);
 
-        // console.log(postsWithIcons);
         return { posts, after: nextAfter };       
     } catch (error) {
         console.log(`There was an error getting posts: ${error}`);

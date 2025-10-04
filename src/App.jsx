@@ -9,16 +9,23 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { Subreddits } from './features/Subreddits/Subreddits';
 import { loadSubreddits } from './features/subreddits/subredditsSlice';
 import { cleanUrl } from './utils/cleanUrl';
+import { useParams } from "react-router-dom";
+
 
 function App() {
   const dispatch = useDispatch();
+  const { subreddit } = useParams();
   const { listings: feedListings, isLoading, hasError } = useSelector((state) => state.allListings);
   const { listings: searchListings, isLoading: searchLoading, hasError: searchError } = useSelector((state) => state.search);
   const { subreddits, isLoading: subredditsLoading, hasError: subredditsError } = useSelector((state) => state.allSubreddits);
 
   useEffect(() => {
+    dispatch(loadListings({ subreddit }));
+  }, [dispatch, subreddit]);
+  
+  useEffect(() => {
     dispatch(loadSubreddits());
-  },[dispatch])
+  }, [dispatch]);
 
   // show search results if any, otherwise feed
   const displayedListings = (searchListings && searchListings.length > 0) ? searchListings : feedListings;
@@ -68,25 +75,29 @@ function App() {
             <div ref={sentinelRef} style={{ height: 1 }} ></div>
           </div>
           <aside className={styles.sidebar}>
-            <h3>Popular communities</h3>
+            <div className={styles.sidebarHeader}>
+              <h3>Popular communities</h3>
+            </div>
+            <div className={styles.subredditList}>
             {subredditsLoading && subreddits.length === 0 ? (
-              Array.from({ length: 25 }).map((_, i) => (
-                <div key={i} style={{ margin: '16px 0' }}>
-                  <Skeleton height={32} /> {/* header */}
-                </div>
-              ))
-            ) : (
+               Array.from({ length: 25 }).map((_, i) => (
+                 <div key={i} style={{ margin: '16px 0' }}>
+                   <Skeleton height={32} /> {/* header */}
+                 </div>
+               ))
+             ) : (
               subreddits
                 .filter(subreddit => subreddit && subreddit.data)
                 .map((subreddit, idx) => (
-                  <span key={subreddit.data.name || idx} className={styles.subredditSpacing}>
+                  <div key={subreddit.data.name || idx}>
                     <Subreddits
                       display_name_prefixed={subreddit.data.display_name_prefixed}
                       icon={cleanUrl(subreddit.data.community_icon)}
                     />
-                  </span>
+                  </div>
               ))
-            )}
+             )}
+            </div>
           </aside>
         </div>
       </main>
