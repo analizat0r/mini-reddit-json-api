@@ -19,7 +19,7 @@ export async function getPosts(searchTerm = "", after = null, subreddit = null) 
             return { posts: [], after: null };
         }
 
-        const jsonResponse = await response.json();
+        const jsonResponse = await response.json();        
         const nextAfter = jsonResponse.data.after;
 
         // Step 1. map all posts
@@ -33,7 +33,8 @@ export async function getPosts(searchTerm = "", after = null, subreddit = null) 
             video_url: post.data.secure_media?.reddit_video?.fallback_url || null,
             image_url: post.data.preview?.images?.[0]?.source?.url
                 ? cleanUrl(post.data.preview.images[0].source.url)
-                : null
+                : null,
+            permalink: post.data.permalink
         }));
 
         // Step 2. fetch subreddit icons in parallel

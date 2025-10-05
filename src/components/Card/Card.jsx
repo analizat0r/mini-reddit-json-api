@@ -1,14 +1,32 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './Card.module.css';
 import ArrowIcon from '../Icons/ArrowIcon';
 import CommentIcon from '../Icons/CommentIcon'
 import timeAgoConverter from '../../utils/timeAgo';
 import numFormater from '../../utils/countFormater';
+import { Comment } from '../../features/comment/Comment';
+import { fetchComments } from '../../features/comment/commentSlice';
 
-export function Card( { community_icon, title, selftext, image_url, num_comments, score, subreddit, postedAt, video_url } ) {
-    const videoRef = useRef(null);
+
+export function Card( { community_icon, title, selftext, image_url, num_comments, score, subreddit, postedAt, video_url, permalink } ) {
+    const dispatch = useDispatch();
+    const [openComments, setOpenComments] = useState(false);
+    const comments = useSelector((state) => state.comments.byPermalink[permalink] || []);
+    const commentsLoading = useSelector((state) => state.comments.loading[permalink]);
+    const commentsError = useSelector((state) => state.comments.error[permalink]);
+
+    const handleCommentsClick = (e) => {
+        e.preventDefault();
+        const next = !openComments;
+        setOpenComments(next);
+        if (next && comments.length === 0 && !commentsLoading) {
+            dispatch(fetchComments(permalink));
+        }
+    };
     
     // function which plays/pauses videos when in/out of viewport
+    const videoRef = useRef(null);    
     useEffect(() => {
         if (!videoRef.current) return;
         const observer = new IntersectionObserver(
@@ -81,7 +99,7 @@ export function Card( { community_icon, title, selftext, image_url, num_comments
                         </span>
                     </button>
                 </span>
-                <a className={styles.threadButtonContainer}>
+                <a href="#" className={styles.threadButtonContainer} onClick={handleCommentsClick}>
                     <span className={styles.commentContainer}>
                         <span className={styles.commentIconContainer}>
                             <CommentIcon size={16}/>
@@ -89,8 +107,30 @@ export function Card( { community_icon, title, selftext, image_url, num_comments
                         <span>{numFormater(num_comments)}</span>
                     </span>
                 </a>
-                
             </div>
+
+            {openComments && (
+                <div className={styles.commentsWrapper}>
+                    {commentsLoading ? (
+                    <div>Loading comments...</div>
+                    ) : commentsError ? (
+                    <div>Error loading comments</div>
+                    ) : comments.length === 0 ? (
+                    <div>No comments</div>
+                    ) : (
+                    comments.map((c) => (
+                        // use your Comment component and pass the expected fields
+                        <Comment
+                        key={c.data?.id}
+                        author={c.data?.author}
+                        body={c.data?.body}
+                        created_utc={c.data?.created_utc}
+                        avatar={c.data?.author_icon_img || c.data?.avatar || ''}
+                        />
+                    ))
+                    )}
+                </div>
+            )}
 
         </article>
     )

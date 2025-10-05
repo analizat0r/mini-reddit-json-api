@@ -1,16 +1,16 @@
 const BASE_URL = "https://corsproxy.io/?https://www.reddit.com";
 
-export async function getSubreddits() {
+export async function getComments(permalink) {
     try {
-        const response = await fetch(`${BASE_URL}/subreddits.json`);
+        const response = await fetch(`${BASE_URL}${permalink}.json`);
         if (!response.ok) {
             console.log(`Fetch successful, but the response is not ok.`);
             return [];
         }
         const jsonResponse = await response.json();        
-        return jsonResponse.data.children || [];
+        return jsonResponse[1]?.data.children || [];
     } catch (error) {
-        console.log("Error while fetching subreddits", error);
+        console.log("Error while fetching comments", error);
         return [];
     }
 }

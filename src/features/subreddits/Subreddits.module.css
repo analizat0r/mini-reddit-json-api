@@ -23,6 +23,7 @@
 }
 
 .subredditItem {
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     width: 100%;
@@ -34,13 +35,13 @@
     border-radius: 8px;
     cursor: pointer;
     transition: background-color .12s ease, transform .06s ease;
-    text-decoration: none; /* remove default link underline */
-    color: inherit;        /* inherit text color */
+    text-decoration: none; 
+    color: inherit;
 }
 
 .subredditItem:hover,
 .subredditItem:focus {
-    background-color: rgba(0,0,0,0.04); /* adjust to your theme variable if needed */
+    background-color: rgba(0,0,0,0.04);
     transform: translateY(-1px);
     outline: none;
 }

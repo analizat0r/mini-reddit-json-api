@@ -1,0 +1,81 @@
+
+.commentRow {
+    padding: 0.75rem 1rem;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    background: transparent;
+}
+
+/* header: avatar + author + time */
+.commentHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem; /* space between header and body */
+}
+
+/* avatar wrapper sizing */
+.cardHeaderElementsAvatar {
+    display: flex;
+    width: 28px;
+    height: 28px;
+}
+
+/* inner avatar styling */
+.cardHeaderElementsAvatarInner {
+    display: flex;
+    width: 28px;
+    height: 28px;
+    background-color: var(--color-secondary-background);
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+/* ensure avatar image fills the circle */
+.cardHeaderElementsAvatarInner > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* author name */
+.subRedditName {
+    color: var(--color-neutral-content);
+    font-weight: 600;
+    font-size: 0.9rem;
+    line-height: 1rem;
+}
+
+/* small separator dot (reuse existing color variable) */
+.dividerDot {
+    color: var(--color-neutral-content-weak);
+    margin: 0 0.25rem;
+}
+
+/* time / meta */
+.time {
+    color: var(--color-neutral-content);
+    font-size: 0.75rem;
+    line-height: 1rem;
+}
+
+/* comment body spacing */
+.commentBody {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+    color: var(--color-neutral-content);
+    font-size: 0.95rem;
+    line-height: 1.4;
+    white-space: pre-wrap; 
+    overflow-wrap: anywhere; 
+    word-break: break-word; 
+    hyphens: auto; 
+}
+
+.commentBody a {
+    color: inherit;
+    text-decoration: underline;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    hyphens: none;
+}
