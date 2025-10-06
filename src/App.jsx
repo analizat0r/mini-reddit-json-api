@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadListings } from '../src/features/allListings/allListingsSlice';
 import styles from './App.module.css';
@@ -13,6 +14,7 @@ import { useParams } from "react-router-dom";
 
 
 function App() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const dispatch = useDispatch();
   const { subreddit } = useParams();
   const { listings: feedListings, isLoading, hasError } = useSelector((state) => state.allListings);
@@ -26,6 +28,8 @@ function App() {
   useEffect(() => {
     dispatch(loadSubreddits());
   }, [dispatch]);
+
+  const handleBurgerClick = () => setSidebarOpen(open => !open);
 
   // show search results if any, otherwise feed
   const displayedListings = (searchListings && searchListings.length > 0) ? searchListings : feedListings;
@@ -50,7 +54,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header sidebarOpen={sidebarOpen} onBurgerClick={handleBurgerClick} />
       <main className={styles.main}>
         <div className={styles.wrapper}>
           <div>
@@ -100,6 +104,35 @@ function App() {
             </div>
           </aside>
         </div>
+        {sidebarOpen && (
+          <div className={styles.mobileSidebarOverlay} onClick={handleBurgerClick}>
+            <aside className={styles.mobileSidebar} onClick={e => e.stopPropagation()}>
+              <div className={styles.sidebarHeader}>
+                <h3>Popular communities</h3>
+              </div>
+              <div className={styles.subredditList}>
+                {subredditsLoading && subreddits.length === 0 ? (
+                  Array.from({ length: 25 }).map((_, i) => (
+                    <div key={i} style={{ margin: '16px 0' }}>
+                      <Skeleton height={32} />
+                    </div>
+                  ))
+                ) : (
+                  subreddits
+                    .filter(subreddit => subreddit && subreddit.data)
+                    .map((subreddit, idx) => (
+                      <div key={subreddit.data.name || idx}>
+                        <Subreddits
+                          display_name_prefixed={subreddit.data.display_name_prefixed}
+                          icon={cleanUrl(subreddit.data.community_icon)}
+                        />
+                      </div>
+                    ))
+                )}
+              </div>
+            </aside>
+          </div>
+        )}
       </main>
     </>
   )

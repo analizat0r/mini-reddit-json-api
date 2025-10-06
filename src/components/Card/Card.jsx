@@ -2,11 +2,14 @@ import { useRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './Card.module.css';
 import ArrowIcon from '../Icons/ArrowIcon';
-import CommentIcon from '../Icons/CommentIcon'
+import CommentIcon from '../Icons/CommentIcon';
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css';
 import timeAgoConverter from '../../utils/timeAgo';
 import numFormater from '../../utils/countFormater';
 import { Comment } from '../../features/comment/Comment';
 import { fetchComments } from '../../features/comment/commentSlice';
+
 
 
 export function Card( { community_icon, title, selftext, image_url, num_comments, score, subreddit, postedAt, video_url, permalink } ) {
@@ -112,7 +115,12 @@ export function Card( { community_icon, title, selftext, image_url, num_comments
             {openComments && (
                 <div className={styles.commentsWrapper}>
                     {commentsLoading ? (
-                    <div>Loading comments...</div>
+                    Array.from({ length: 2 }).map((_, i) => (
+                        <div key={i} style={{ margin: '16px 0' }}>
+                            <Skeleton height={32} width={200} />
+                            <Skeleton height={100} /> 
+                        </div>
+                    ))
                     ) : commentsError ? (
                     <div>Error loading comments</div>
                     ) : comments.length === 0 ? (

@@ -1,15 +1,50 @@
-# React + Vite
+# Mini Reddit JSON API
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A minimal Reddit client built with React and Vite, featuring infinite scrolling, subreddit browsing, and a modern UI.
 
-Currently, two official plugins are available:
+## 🚀 Technologies Used
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React** (with Hooks)
+- **Redux Toolkit** (state management)
+- **React Router** (routing)
+- **Vite** (build tool)
+- **CSS Modules** (styling)
+- **Reddit JSON API** (data source)
+- **CORS Proxy** (for API requests)
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Browse Reddit posts and popular subreddits
+- Infinite scrolling for posts
+- View posts by subreddit
+- Responsive, modern UI
+- Loading skeletons for better UX
+- Error handling for API requests
 
-to start a project
-`npm run dev`
+## 🛠️ Project Structure
+
+- `/src/components` — Reusable UI components (e.g., Card)
+- `/src/features` — Feature-based Redux slices and related components (e.g., subreddits, comments)
+- `/src/api` — API functions for fetching data
+- `/src/utils` — Utility functions (e.g., URL sanitization)
+
+## 📋 Future Work
+
+- **Write tests** for components and unit tests for utility functions
+- **Review and refactor API functions**:  
+  Especially `getPosts`, which is currently complex and could be improved for readability and maintainability
+- **Review project structure**:  
+  The separation between `components` and `features` folders should be clarified and organized for scalability
+- **Improve error boundaries** and user feedback for failed API requests
+- **Enhance accessibility** and mobile responsiveness
+
+## 🏁 Getting Started
+
+Install dependencies and start the development server:
+
+```sh
+npm install
+npm run dev
+```
+
+---

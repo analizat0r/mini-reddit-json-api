@@ -22,6 +22,12 @@
     margin-top: 1rem;
 }
 
+@media (max-width: 1050px) {
+    .sidebar {
+        display: none;
+    }
+}
+
 .sidebarHeader {
     padding: 0.25rem 0 0 1.75rem;
  
@@ -38,4 +44,30 @@
     flex-direction: column;
     gap: 0.25rem;
     padding: 0 1rem 1.5rem 1rem;
+}
+
+.mobileSidebarOverlay {
+    display: none;
+}
+
+@media (max-width: 1050px) {
+    .mobileSidebarOverlay {
+        display: flex;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.3);
+        z-index: 1000;
+        justify-content: flex-end;
+    }
+    .mobileSidebar {
+        background: var(--color-secondary-background);
+        width: 80vw;
+        max-width: 320px;
+        height: 100%;
+        border-radius: 1rem 0 0 1rem;
+        box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+        padding: 1rem 0;
+        overflow-y: auto;
+        position: relative;
+    }
 }

@@ -1,7 +1,8 @@
 .searchComponentChild {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     gap: 8px;
+    flex: 1 1 0;
 }
 
 .searchIcon {
@@ -10,10 +11,18 @@
 
 .searchInput {
     width: 100%;
-    min-width: 500px;
+    min-width: 0;
     max-width: 500px;
-    border: 0px;
+    flex: 1 1 0;
 }
+
+@media (max-width: 600px) {
+    .searchInput {
+        max-width: 200px;
+    }
+}
+
+
 input:focus {
     outline: none;
 }
