@@ -37,6 +37,7 @@ A minimal Reddit client built with React and Vite, featuring infinite scrolling,
   The separation between `components` and `features` folders should be clarified and organized for scalability
 - **Improve error boundaries** and user feedback for failed API requests
 - **Enhance accessibility** and mobile responsiveness
+- **Fix comments rendering bug** where the app crashes while fetching more than couple hundred comments
 
 ## 🏁 Getting Started
 

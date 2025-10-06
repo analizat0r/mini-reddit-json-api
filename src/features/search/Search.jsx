@@ -26,11 +26,9 @@ export function Search() {
 
     return (
         <form className={styles.searchComponentChild} onSubmit={handleSubmit}>
-            {searchTerm.length > 0 && (
-                <button type='submit'>
-                    <SearchIcon size={16} className={styles.searchIcon} />
-                </button>
-            )}
+            <button type='submit'>
+                <SearchIcon size={16} className={styles.searchIcon} />
+            </button>
             <input
                 id="search"
                 type="text"
@@ -38,7 +36,7 @@ export function Search() {
                 onChange={onSearchChangeHandler}    
                 placeholder='Search Reddit'
                 className={styles.searchInput}
-             />
+            />
         </form>
     );
 };

@@ -12,6 +12,13 @@
     margin-top: 0.75rem;
 }
 
+@media (max-width: 1050px) { /* you can adjust breakpoint */
+  .wrapper {
+    grid-template-columns: 1fr; /* collapse to one column */
+    max-width: 100%;           /* make it fit screen width */
+  }
+}
+
 .sidebar {
     position: sticky;
     top: 1rem;
