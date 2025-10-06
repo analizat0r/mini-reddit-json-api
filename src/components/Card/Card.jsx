@@ -82,7 +82,9 @@ export function Card( { community_icon, title, selftext, image_url, num_comments
                             <img src={image_url} alt="Thread image" loading="lazy" />
                         </div>
                     ) : (
-                        selftext
+                        <div className={styles.selftext}>
+                        {selftext}
+                        </div>
                     )}
                 </div>
             </div>
@@ -97,7 +99,7 @@ export function Card( { community_icon, title, selftext, image_url, num_comments
                     </button>
                     <span className={styles.upVoteCount}>{numFormater(score)}</span>
                     <button>
-                        <span className={styles.upVoteArrow}>
+                        <span className={styles.upVoteArrow}> {/* up/down voting not available. This is just a UI component */}
                             <ArrowIcon direction={"down"} size={16}/>
                         </span>
                     </button>
@@ -127,7 +129,6 @@ export function Card( { community_icon, title, selftext, image_url, num_comments
                     <div>No comments</div>
                     ) : (
                     comments.map((c) => (
-                        // use your Comment component and pass the expected fields
                         <Comment
                         key={c.data?.id}
                         author={c.data?.author}
@@ -139,7 +140,6 @@ export function Card( { community_icon, title, selftext, image_url, num_comments
                     )}
                 </div>
             )}
-
         </article>
     )
 }
