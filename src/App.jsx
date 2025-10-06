@@ -7,7 +7,7 @@ import { Header } from './components/Header/Header';
 import { useEffect, useRef } from 'react';
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import { Subreddits } from './features/Subreddits/Subreddits';
+import { Subreddits } from './features/subreddits/Subreddits';
 import { loadSubreddits } from './features/subreddits/subredditsSlice';
 import { cleanUrl } from './utils/cleanUrl';
 import { useParams } from "react-router-dom";
